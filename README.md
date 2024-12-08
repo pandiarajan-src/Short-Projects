@@ -16,3 +16,11 @@ It's a great start to learn on how to work with Prompts using OpenAI APIs.
 
 #### Credits
 It was taught by [Andrew Ng](https://www.andrewng.org) and [Isha Fulford](https://www.coursera.org/instructor/~137229549)<br> and all credits goes to them.
+
+## 3. Generative AI with LLMs (using AWS)
+
+This is a project that I have learnt from deeplearning.ai course in collaboration with AWS ["Generative AI with LLMs"](https://www.deeplearning.ai/courses/generative-ai-with-llms/) <br>
+Its a great start to learn Generative AI with good examples using AWS environment.
+
+#### Credits
+It was taught by "Antje Barth", "Chris Fregly", "Shelbee Eigenbrode", "Mike Chambers" and all credits of this material goes to them and other instructuors involved in this course formation.
