@@ -8,3 +8,11 @@ It's a great start to learn on how to use OpenAI APIs.
 
 #### Credits
 It was taught by [Andrew Ng](https://www.andrewng.org) and [Isha Fulford](https://www.coursera.org/instructor/~137229549)<br> and all credits goes to them.
+
+## 2. Prompt Engineering using ChatGPT
+
+This is a project that I have learnt from deeplearning.ai course ["ChatGPT Prompte Engineering for Developers"](https://learn.deeplearning.ai/courses/chatgpt-prompt-eng/lesson/4/summarizing/)<br>
+It's a great start to learn on how to work with Prompts using OpenAI APIs.
+
+#### Credits
+It was taught by [Andrew Ng](https://www.andrewng.org) and [Isha Fulford](https://www.coursera.org/instructor/~137229549)<br> and all credits goes to them.
