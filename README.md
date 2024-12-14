@@ -24,3 +24,10 @@ Its a great start to learn Generative AI with good examples using AWS environmen
 
 #### Credits
 It was taught by "Antje Barth", "Chris Fregly", "Shelbee Eigenbrode", "Mike Chambers" and all credits of this material goes to them and other instructuors involved in this course formation.
+
+## 4. Tic Tac Toe with Minimax AI
+   - A Python-based Tic Tac Toe game featuring an unbeatable AI opponent
+   - Implemented using the Minimax algorithm
+   - Includes comprehensive unit testing
+#### Credits
+   Developed by Codeium Cascade AI - [https://www.codeium.com](https://www.codeium.com)
