@@ -31,3 +31,11 @@ It was taught by [Antje Barth](https://www.linkedin.com/in/antje-barth/), [Chris
    - Includes comprehensive unit testing
 #### Credits
    Developed by Codeium Cascade AI - [https://www.codeium.com](https://www.codeium.com)
+
+## 5. LangChain for LLM Application Development
+
+This is a project that I have learnt from [deeplearning.ai](https://www.deeplearning.ai) course ["LangChain for LLM Application Development"](https://learn.deeplearning.ai/courses/langchain/lesson/1/introduction)<br>
+It helps to understand the concepts with examples of powerful and extensible LangChain framework, using prompts, parsing, memory, chains, question answering, and agents.
+
+#### Credits
+It was taught by [Andrew Ng](https://www.andrewng.org) and [Harrison Chase](https://www.linkedin.com/in/harrison-chase-961287118/) who collaborated with [deeplearning.ai](https://www.deeplearning.ai)
