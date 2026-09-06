@@ -39,3 +39,11 @@ It helps to understand the concepts with examples of powerful and extensible Lan
 
 #### Credits
 It was taught by [Andrew Ng](https://www.andrewng.org) and [Harrison Chase](https://www.linkedin.com/in/harrison-chase-961287118/) who collaborated with [deeplearning.ai](https://www.deeplearning.ai)
+
+## 6. Building Adaptive AI Agents
+
+This is a project that I have learnt from [deeplearning.ai](https://www.deeplearning.ai) course ["Building Adaptive AI Agents"](https://www.deeplearning.ai/courses/building-adaptive-ai-agents) <br>
+It helps to understand the concept of adaptive agents both token based and weight based (1) updating skills based on traces and learnings (2) building code graph base knowledge for better retrival (3) weight adjsustments. but this sample folder contains only (1) (2) both are token based optimization
+
+#### Credits
+It was taught by [Nacho Martínez](https://www.linkedin.com/in/jasperan/) and [Casius Lee](https://www.linkedin.com/in/casiusslee/) in collaboration with [deeplearning.ai](https://www.deeplearning.ai)
