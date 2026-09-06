@@ -1,0 +1,14 @@
+{
+  "name": "day-8",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/cli": "^0.1.18",
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^26.2.0"
+  }
+}

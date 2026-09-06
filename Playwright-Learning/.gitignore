@@ -1,0 +1,12 @@
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+Day-8/.playwright-cli/
+Day-8/.playwright-mcp/
+Day-8/tests/.playwright-mcp/
+.playwright-mcp/

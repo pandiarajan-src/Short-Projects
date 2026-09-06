@@ -47,3 +47,7 @@ It helps to understand the concept of adaptive agents both token based and weigh
 
 #### Credits
 It was taught by [Nacho Martínez](https://www.linkedin.com/in/jasperan/) and [Casius Lee](https://www.linkedin.com/in/casiusslee/) in collaboration with [deeplearning.ai](https://www.deeplearning.ai)
+
+## 7. PlayWright Learning
+
+This is a project that I have learnt from Claude to work with Playwright type-scripts

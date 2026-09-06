@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Iframe Demo - Child</title>
+</head>
+<body>
+  <form onsubmit="event.preventDefault(); document.getElementById('result').textContent = 'Submitted!';">
+    <label for="name">Name</label>
+    <input id="name" type="text">
+    <button type="submit">Submit</button>
+  </form>
+  <p id="result"></p>
+</body>
+</html>

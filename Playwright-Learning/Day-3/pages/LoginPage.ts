@@ -1,0 +1,26 @@
+// This POM is going to test https://www.saucedemo.com a demo e-commerce website
+import { Page, Locator } from '@playwright/test';
+
+export class LoginPage {
+    private readonly page: Page;
+    readonly usernameInput: Locator;
+    readonly passwordInput: Locator;
+    readonly loginButton: Locator;
+
+    constructor(page: Page) {
+        this.page = page;
+        this.usernameInput = page.getByPlaceholder('Username');
+        this.passwordInput = page.getByPlaceholder('Password');
+        this.loginButton = page.getByRole('button', { name: 'Login' });
+    }
+
+    async goToLoginPage(): Promise<void> {
+        await this.page.goto('https://www.saucedemo.com');
+    }
+
+    async login(username: string, password: string): Promise<void> {
+        await this.usernameInput.fill(username);
+        await this.passwordInput.fill(password);
+        await this.loginButton.click();
+    }
+}
