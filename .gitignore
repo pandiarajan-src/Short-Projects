@@ -168,3 +168,4 @@ cython_debug/
 #.idea/
 
 sproj_env/pyvenv.cfg
+Youtube_Transcript_Fetcher/test.txt
