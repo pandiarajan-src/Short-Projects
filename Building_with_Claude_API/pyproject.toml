@@ -1,0 +1,20 @@
+[project]
+name = "building-with-claude-api"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Pandiarajan", email = "pandi.rajan@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.4.0",
+    "python-dotenv>=1.2.3",
+]
+
+[project.scripts]
+building-with-claude-api = "building_with_claude_api:main"
+
+[build-system]
+requires = ["uv_build>=0.12.4,<0.13.0"]
+build-backend = "uv_build"
