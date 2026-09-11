@@ -1,0 +1,9 @@
+# This pipeline relies on recent Anthropic API features (output_config,
+# adaptive thinking, streaming, web_search tool) not present in the older
+# anthropic==0.58.2 pinned at the monorepo root — install these in a
+# dedicated virtualenv for this folder rather than the shared sproj_env.
+anthropic>=0.70.0
+youtube-transcript-api==1.2.2
+yt-dlp>=2025.2.19
+python-dotenv==1.0.1
+pytest>=8.0.0
