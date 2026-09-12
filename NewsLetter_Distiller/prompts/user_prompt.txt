@@ -1,6 +1,8 @@
 Summarize and clean up the newsletter content below into a well-structured Markdown digest:
 
-- Use headings to mirror the newsletter's own section structure where sensible.
+- Start the digest with a "Highlights" section containing exactly 5 bullet points that summarize the most important takeaways from the entire newsletter. Keep each bullet to one line.
+- After the Highlights section, use headings to mirror the newsletter's own section structure where sensible.
 - Keep the writing concise — trim filler, greetings, and repeated calls to action, but keep all substantive facts, numbers, and explanations.
+- For key concepts that benefit from it, add a short real-world example or analogy to make the idea easier to grasp. Use this sparingly — only for the concepts that are genuinely hard to follow without one, not for every paragraph.
 - Insert each concept/chart image you keep at the point in the digest where it's most relevant to the surrounding text, using its placeholder ID.
 - If you're unsure whether an image is promotional, prefer to leave it out.
