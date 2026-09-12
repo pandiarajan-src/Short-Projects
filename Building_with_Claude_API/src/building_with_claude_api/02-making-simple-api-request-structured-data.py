@@ -40,22 +40,16 @@ def chat(messages, prompt, system_prompt=None, max_tokens=1000, model=default_mo
     if start_sequences is not None:
         add_assistant_message(messages, start_sequences)
 
-    parameters = {}
+    parameters = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "messages": messages,
+    }
     if stop_sequences is not None:
-        parameters = {
-            "model": model,
-            "max_tokens": max_tokens,
-            "messages": messages,
-            "stop_sequences": [stop_sequences]
-        }
-    else:
-        parameters = {
-            "model": model,
-            "max_tokens": max_tokens,
-            "messages": messages,
-        }
+        parameters["stop_sequences"] = [stop_sequences]
     if system_prompt:
         parameters["system"] = system_prompt
+
     final_message = None
     with client.messages.stream(**parameters) as stream:
         for text in stream.text_stream:
