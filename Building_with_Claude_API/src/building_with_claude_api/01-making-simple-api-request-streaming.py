@@ -44,9 +44,13 @@ def chat(messages, prompt, system_prompt=None, max_tokens=1000, model=default_mo
     }
     if system_prompt:
         parameters["system"] = system_prompt
-    response = client.messages.create(**parameters)
-    print(f"\033[90m{response}\033[0m")
-    return response.content[0].text
+    final_message = None
+    with client.messages.stream(**parameters) as stream:
+        for text in stream.text_stream:
+            print(text, end="", flush=True)
+        print("\n\033[90mResponse completed.\033[0m")
+        final_message = stream.get_final_message()
+    return final_message
 
 
 if __name__ == "__main__":
