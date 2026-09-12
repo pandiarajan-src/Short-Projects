@@ -1,0 +1,6 @@
+Summarize and clean up the newsletter content below into a well-structured Markdown digest:
+
+- Use headings to mirror the newsletter's own section structure where sensible.
+- Keep the writing concise — trim filler, greetings, and repeated calls to action, but keep all substantive facts, numbers, and explanations.
+- Insert each concept/chart image you keep at the point in the digest where it's most relevant to the surrounding text, using its placeholder ID.
+- If you're unsure whether an image is promotional, prefer to leave it out.
