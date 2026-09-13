@@ -170,3 +170,5 @@ cython_debug/
 sproj_env/pyvenv.cfg
 Youtube_Transcript_Fetcher/test.txt
 Youtube_Transcript_Fetcher/ClaudeOutput/
+Building_with_Claude_API/prompt_eval_dataset.json
+Building_with_Claude_API/evaluation_results.json
