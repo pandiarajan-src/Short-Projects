@@ -172,3 +172,6 @@ Youtube_Transcript_Fetcher/test.txt
 Youtube_Transcript_Fetcher/ClaudeOutput/
 Building_with_Claude_API/prompt_eval_dataset.json
 Building_with_Claude_API/evaluation_results.json
+dataset.json
+output.html
+output.json
