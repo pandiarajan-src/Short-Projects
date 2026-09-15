@@ -10,24 +10,41 @@ Functions:
 import os
 from dotenv import load_dotenv
 from anthropic import Anthropic
+from anthropic.types import Message
 
 # Load environment variables from .env file
 load_dotenv()
 default_model = os.getenv("ANTHROPIC_DEFAULT_MODEL_TO_USE", "claude-haiku-4-5-20251001")
 
-def add_user_message(messages, content):
+def add_user_message(messages, message):
     '''
     Function to add a user message to the messages list.
     '''
-    messages.append({"role": "user", "content": content })
+    user_message = {
+        "role": "user",
+        "content": message.content if isinstance(message, Message) else message,
+    }
+    messages.append(user_message)    
 
-def add_assistant_message(messages, content):
+def add_assistant_message(messages, message):
     '''
     Function to add an assistant message to the messages list.
     '''
-    messages.append({"role": "assistant", "content": content })
+    assistant_message = {
+        "role": "assistant",
+        "content": message.content if isinstance(message, Message) else message,
+    }
+    messages.append(assistant_message)
 
-def chat(messages, model=default_model, system=None, stop_sequences=[]):
+def chat_return_text(messages, model=default_model, system=None, stop_sequences=[], tools=None):
+    response = chat(messages=messages, model=model, system=system, stop_sequences=stop_sequences, tools=tools)
+    return response.content[0].text
+
+def chat_return_response(messages, model=default_model, system=None, stop_sequences=[], tools=None):
+    response = chat(messages=messages, model=model, system=system, stop_sequences=stop_sequences, tools=tools)
+    return response
+
+def chat(messages, model=default_model, system=None, stop_sequences=[], tools=None):
     '''
     Function to send a chat request to the Anthropic API with the provided messages and parameters.
     '''
@@ -42,5 +59,11 @@ def chat(messages, model=default_model, system=None, stop_sequences=[]):
     if system:
         params["system"] = system
 
+    if tools:
+        params["tools"] = tools
+
     message = client.messages.create(**params)
-    return message.content[0].text
+    return message
+
+def text_from_message(message):
+    return "\n".join([block.text for block in message.content if block.type == "text"])
