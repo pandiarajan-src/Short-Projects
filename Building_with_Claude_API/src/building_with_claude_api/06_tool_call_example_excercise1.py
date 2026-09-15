@@ -4,12 +4,16 @@
 
 import json
 from building_with_claude_api.utils.llm_messages import add_user_message, add_assistant_message, chat, text_from_message
-from building_with_claude_api.utils.tool_datetime import get_current_datetime_schema, get_current_datetime
+from building_with_claude_api.utils.tool_datetime import get_current_datetime_schema, get_current_datetime, add_duration_to_datetime, add_duration_to_datetime_schema, set_reminder, set_reminder_schema
 from anthropic import Anthropic
 
 def run_tool(tool_name, tool_input):
     if tool_name == "get_current_datetime":
         return get_current_datetime(**tool_input)
+    elif tool_name == "add_duration_to_datetime":
+        return add_duration_to_datetime(**tool_input)
+    elif tool_name == "set_reminder":
+        return set_reminder(**tool_input)
 
 
 def run_tools(message):
@@ -53,10 +57,23 @@ def run_conversation(messages):
 
     return messages
 
-if __name__ == "__main__":
+def test_one_tool_2_get_date_time():
     messages = []
     add_user_message(
         messages,
-        "What is the current time in HH:MM format? Also, what is the current time in SS format?",
+        "What is the current date and time in HH:MM:SS format?",
     )
+    return messages
+
+def test_two_tool_2_run_couple_tools():
+    messages = []
+    add_user_message(
+        messages,
+        "Set a reminder for my doctors appointment. Its 177 days after Jan 1st, 2050.",
+    )
+    return messages
+
+
+if __name__ == "__main__":
+    messages = test_two_tool_2_run_couple_tools()
     run_conversation(messages)
