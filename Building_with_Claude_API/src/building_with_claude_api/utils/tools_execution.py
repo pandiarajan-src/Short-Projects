@@ -3,8 +3,9 @@ Tools execution code
 """
 
 import json
-from .llm_messages import add_user_message, add_assistant_message, chat_internal, text_from_message
+from .llm_messages import add_user_message, add_assistant_message, chat_internal, text_from_message, chat_stream
 from .tool_datetime import get_current_datetime_schema, get_current_datetime, add_duration_to_datetime, add_duration_to_datetime_schema, set_reminder, set_reminder_schema
+from .tool_articles import save_article
 from anthropic import Anthropic
 
 def run_tool(tool_name, tool_input):
@@ -14,6 +15,8 @@ def run_tool(tool_name, tool_input):
         return add_duration_to_datetime(**tool_input)
     elif tool_name == "set_reminder":
         return set_reminder(**tool_input)
+    elif tool_name == "save_article":
+        return save_article(**tool_input)
 
 
 def run_tools(message):
@@ -56,3 +59,42 @@ def run_conversation(messages):
         add_user_message(messages, tool_results)
 
     return messages
+
+def run_conversation_steam(messages, tools=[], tool_choice=None, fine_grained=False):
+    while True:
+        with chat_stream(
+            messages,
+            tools=tools,
+            betas=["fine-grained-tool-streaming-2025-05-14"] if fine_grained else [],
+            tool_choice=tool_choice,
+        ) as stream:
+            for chunk in stream:
+                if chunk.type == "text":
+                    print(chunk.text, end="")
+
+                if chunk.type == "content_block_start":
+                    if chunk.content_block.type == "tool_use":
+                        print(f'\n>>> Tool Call: "{chunk.content_block.name}"')
+
+                if chunk.type == "input_json" and chunk.partial_json:
+                    print(chunk.partial_json, end="")
+
+                if chunk.type == "content_block_stop":
+                    print("\n")
+
+            response = stream.get_final_message()
+
+        add_assistant_message(messages, response)
+
+        if response.stop_reason != "tool_use":
+            break
+
+        tool_results = run_tools(response)
+        add_user_message(messages, tool_results)
+
+        if tool_choice:
+            break
+
+    return messages
+
+
