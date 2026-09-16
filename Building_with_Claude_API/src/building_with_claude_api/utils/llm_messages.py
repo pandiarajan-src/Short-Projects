@@ -36,15 +36,16 @@ def add_assistant_message(messages, message):
     }
     messages.append(assistant_message)
 
-def chat_return_text(messages, model=default_model, system=None, stop_sequences=[], tools=None):
-    response = chat(messages=messages, model=model, system=system, stop_sequences=stop_sequences, tools=tools)
-    return response.content[0].text
-
-def chat_return_response(messages, model=default_model, system=None, stop_sequences=[], tools=None):
-    response = chat(messages=messages, model=model, system=system, stop_sequences=stop_sequences, tools=tools)
-    return response
 
 def chat(messages, model=default_model, system=None, stop_sequences=[], tools=None):
+    '''
+    Function to send a chat request to the Anthropic API with the provided messages and parameters.
+    '''
+    response = chat_internal(messages=messages, model=model, system=system, stop_sequences=stop_sequences, tools=tools)
+    return response.content[0].text
+
+
+def chat_internal(messages, model=default_model, system=None, stop_sequences=[], tools=None):
     '''
     Function to send a chat request to the Anthropic API with the provided messages and parameters.
     '''
