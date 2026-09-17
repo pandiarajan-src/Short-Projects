@@ -16,6 +16,8 @@ from anthropic.types import Message
 load_dotenv()
 default_model = os.getenv("ANTHROPIC_DEFAULT_MODEL_TO_USE", "claude-haiku-4-5-20251001")
 
+def get_default_model():
+    return default_model
 
 def add_user_message(messages, message):
     '''
