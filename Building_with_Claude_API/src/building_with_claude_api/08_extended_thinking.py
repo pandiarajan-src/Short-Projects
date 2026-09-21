@@ -3,7 +3,6 @@
 
 from building_with_claude_api.utils.llm_messages import (
     add_user_message,
-    text_from_message,
     thinking_chat,
 )
 

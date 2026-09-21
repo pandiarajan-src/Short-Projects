@@ -7,6 +7,7 @@ Functions:
 - chat(messages, model=default_model, system=None, stop_sequences=[]): Sends a chat request to the Anthropic API with the provided messages and parameters.
 """
 
+import base64
 import os
 from dotenv import load_dotenv
 from anthropic import Anthropic
@@ -18,6 +19,31 @@ default_model = os.getenv("ANTHROPIC_DEFAULT_MODEL_TO_USE", "claude-haiku-4-5-20
 
 def get_default_model():
     return default_model
+
+def add_image_to_user_message(messages, image_path, text=None):
+    if not os.path.exists(image_path):
+        return "FAIL: Image file doesn't exist"
+    with open(image_path, "rb") as f:
+        image_bytes = base64.standard_b64encode(f.read()).decode("utf-8")
+        # Build Image block
+        image_block = {
+            "type": "image",
+            "source": {
+                "type": "base64",
+                "media_type": "image/png",
+                "data": image_bytes,
+            }
+        }
+        content = [image_block]
+        if text:
+            content.append({"type": "text", "text": text})
+        user_message = {
+            "role": "user",
+            "content": content,
+        }
+        messages.append(user_message)
+    return "SUCCESS: added the image block to message"
+
 
 def add_user_message(messages, message):
     '''
