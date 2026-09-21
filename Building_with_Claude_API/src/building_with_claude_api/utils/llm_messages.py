@@ -89,17 +89,24 @@ def chat(messages, model=default_model, system=None, stop_sequences=[], tools=No
     return response.content[0].text
 
 
-def chat_internal(messages, model=default_model, system=None, stop_sequences=[], tools=None):
+def chat_internal(messages, model=default_model, system=None, stop_sequences=[], tools=None, thinking=False, thinking_budget=1024):
     '''
     Function to send a chat request to the Anthropic API with the provided messages and parameters.
     '''
     client = Anthropic()
+    max_tokens = thinking_budget + 1024 if thinking else 1024
     params = {
         "model": model,
-        "max_tokens": 1000,
+        "max_tokens": max_tokens,
         "messages": messages,
         "stop_sequences": stop_sequences,
     }
+
+    if thinking:
+        params["thinking"] = {
+            "type": "enabled",
+            "budget_tokens": thinking_budget,
+        }
 
     if system:
         params["system"] = system
@@ -135,6 +142,23 @@ def chat_stream(messages, model=default_model, system=None, stop_sequence=[], to
         params["betas"] = betas
 
     return client.beta.messages.stream(**params)
+
+
+def thinking_chat(
+    messages,
+    model=default_model,
+    system=None,
+    stop_sequences=[],
+    tools=None,
+    thinking=True,
+    thinking_budget=1024,
+):
+    """
+    Function to send a chat request to the Anthropic API with thinking feature and provided messages and parameters.
+    """
+    return chat_internal(messages=messages, model=model, system=system,
+                         stop_sequences=stop_sequences, tools=tools, 
+                         thinking=thinking, thinking_budget=thinking_budget)
 
 
 def text_from_message(message):
