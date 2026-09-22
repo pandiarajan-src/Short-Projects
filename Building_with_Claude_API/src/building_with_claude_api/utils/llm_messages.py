@@ -20,6 +20,31 @@ default_model = os.getenv("ANTHROPIC_DEFAULT_MODEL_TO_USE", "claude-haiku-4-5-20
 def get_default_model():
     return default_model
 
+def add_pdf_to_user_message(messages, pdf_path, text=None):
+    if not os.path.exists(pdf_path):
+        return "FAIL: PDF file doesn't exist"
+    with open(pdf_path, "rb") as f:
+        pdf_bytes = base64.standard_b64encode(f.read()).decode("utf-8")
+        # Build application block
+        pdf_block = {
+            "type": "document",
+            "source": {
+                "type": "base64",
+                "media_type": "application/pdf",
+                "data": pdf_bytes,
+            }
+        }
+        content = [pdf_block]
+        if text:
+            content.append({"type": "text", "text": text})
+        user_message = {
+            "role": "user",
+            "content": content,
+        }
+        messages.append(user_message)
+    return "SUCCESS: added the image block to message"        
+
+
 def add_image_to_user_message(messages, image_path, text=None):
     if not os.path.exists(image_path):
         return "FAIL: Image file doesn't exist"
