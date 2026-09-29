@@ -1,0 +1,702 @@
+<title>MCP Chat Blueprint</title>
+<style>
+:root{
+  --bg:#f6f5f0;
+  --surface:#ffffff;
+  --ink:#1f2430;
+  --muted:#5b6270;
+  --line:#dcd7c9;
+  --line-strong:#c7c0ae;
+  --accent:#2a5d8f;
+  --accent-soft:#e4edf5;
+  --accent-2:#b5502c;
+  --accent-2-soft:#f6e8e0;
+  --code-bg:#eeece3;
+  --panel-tag:#2a5d8f;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14171c;
+    --surface:#1a1e25;
+    --ink:#e8e6df;
+    --muted:#9aa1ad;
+    --line:#2c313b;
+    --line-strong:#3a4048;
+    --accent:#7db1e0;
+    --accent-soft:#1e2c3a;
+    --accent-2:#e08a5b;
+    --accent-2-soft:#332420;
+    --code-bg:#20242c;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14171c;
+  --surface:#1a1e25;
+  --ink:#e8e6df;
+  --muted:#9aa1ad;
+  --line:#2c313b;
+  --line-strong:#3a4048;
+  --accent:#7db1e0;
+  --accent-soft:#1e2c3a;
+  --accent-2:#e08a5b;
+  --accent-2-soft:#332420;
+  --code-bg:#20242c;
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+  font-size:15.5px;
+  line-height:1.65;
+}
+h1,h2,h3,h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.03em;
+  text-wrap:balance;
+  color:var(--ink);
+}
+a{color:var(--accent);}
+code, .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;}
+code{
+  background:var(--code-bg);
+  padding:0.12em 0.4em;
+  border-radius:4px;
+  font-size:0.88em;
+}
+pre{
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:14px 16px;
+  overflow-x:auto;
+}
+pre code{background:none;padding:0;}
+
+.layout{
+  display:flex;
+  max-width:1180px;
+  margin:0 auto;
+  align-items:flex-start;
+}
+
+nav.toc{
+  position:sticky;
+  top:calc(env(safe-area-inset-top,0px) + 24px);
+  flex:0 0 220px;
+  padding:32px 18px 32px 24px;
+  align-self:flex-start;
+}
+nav.toc .label{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:0.12em;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+nav.toc ol{
+  list-style:none;
+  margin:0;padding:0;
+  border-left:2px solid var(--line);
+}
+nav.toc li{margin:0;}
+nav.toc a{
+  display:block;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12.5px;
+  text-decoration:none;
+  color:var(--muted);
+  padding:7px 0 7px 14px;
+  margin-left:-2px;
+  border-left:2px solid transparent;
+}
+nav.toc a:hover{color:var(--ink);border-left-color:var(--line-strong);}
+nav.toc a .n{color:var(--accent);margin-right:6px;}
+
+main{
+  flex:1 1 auto;
+  min-width:0;
+  padding:32px 28px 90px;
+  max-width:900px;
+}
+
+header.hero{
+  border-bottom:1px solid var(--line);
+  padding-bottom:22px;
+  margin-bottom:36px;
+}
+.kicker{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;
+  letter-spacing:0.16em;
+  color:var(--accent);
+  margin-bottom:10px;
+}
+header.hero h1{
+  font-size:28px;
+  margin:0 0 10px;
+  letter-spacing:0.01em;
+}
+header.hero p{
+  color:var(--muted);
+  max-width:62ch;
+  font-size:15px;
+  margin:0;
+}
+
+section{margin-bottom:52px;scroll-margin-top:24px;}
+section h2{
+  font-size:13px;
+  color:var(--accent);
+  margin:0 0 18px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+}
+section h2 .idx{color:var(--muted);font-weight:400;}
+section h3{
+  font-size:12px;
+  color:var(--ink);
+  margin:26px 0 10px;
+  letter-spacing:0.02em;
+}
+p{margin:0 0 14px;max-width:70ch;}
+ul,ol{margin:0 0 14px;padding-left:22px;}
+li{margin-bottom:4px;max-width:66ch;}
+
+.panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:20px 20px 16px;
+  margin:18px 0 22px;
+  overflow-x:auto;
+}
+.panel .fig{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;
+  letter-spacing:0.1em;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.panel .fig b{color:var(--panel-tag);}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0 22px;
+  font-size:13.5px;
+}
+th,td{
+  text-align:left;
+  padding:9px 12px;
+  border-bottom:1px solid var(--line);
+  vertical-align:top;
+}
+th{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;
+  letter-spacing:0.08em;
+  color:var(--muted);
+  text-transform:uppercase;
+  border-bottom:1px solid var(--line-strong);
+}
+td code{white-space:nowrap;}
+
+.file-card{
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--surface);
+  padding:18px 20px;
+  margin-bottom:16px;
+}
+.file-card summary{
+  cursor:pointer;
+  list-style:none;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13.5px;
+  color:var(--ink);
+}
+.file-card summary::-webkit-details-marker{display:none;}
+.file-card summary::before{
+  content:"+";
+  color:var(--accent);
+  font-weight:700;
+  width:14px;
+}
+.file-card[open] summary::before{content:"–";}
+.file-card .role{
+  color:var(--muted);
+  font-family:"IBM Plex Sans",sans-serif;
+  font-size:12.5px;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:0;
+}
+.file-card .body{margin-top:14px;padding-left:24px;}
+.file-card .body p, .file-card .body ul{max-width:64ch;}
+
+.callout{
+  border:1px solid var(--accent-2);
+  background:var(--accent-2-soft);
+  border-radius:10px;
+  padding:16px 18px;
+  margin:18px 0;
+}
+.callout .fig{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;
+  letter-spacing:0.1em;
+  color:var(--accent-2);
+  margin-bottom:8px;
+}
+.callout p, .callout li{max-width:64ch;}
+
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 20px;}
+.pill{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  padding:4px 10px;
+  border:1px solid var(--line-strong);
+  border-radius:999px;
+  color:var(--muted);
+}
+
+.mobile-toc{display:none;}
+
+footer.doc-footer{
+  border-top:1px solid var(--line);
+  padding-top:16px;
+  margin-top:60px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  color:var(--muted);
+}
+
+@media (max-width:900px){
+  .layout{display:block;}
+  nav.toc{display:none;}
+  .mobile-toc{
+    display:block;
+    position:sticky;
+    top:env(safe-area-inset-top,0px);
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+    padding:10px 16px;
+    overflow-x:auto;
+    white-space:nowrap;
+    z-index:5;
+  }
+  .mobile-toc a{
+    font-family:"IBM Plex Mono",monospace;
+    font-size:11.5px;
+    color:var(--muted);
+    text-decoration:none;
+    margin-right:16px;
+  }
+  main{padding:20px 18px 70px;max-width:100%;}
+  header.hero h1{font-size:22px;}
+}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<div class="mobile-toc">
+  <a href="#purpose">Purpose</a>
+  <a href="#architecture">Architecture</a>
+  <a href="#files">Files</a>
+  <a href="#sequences">Sequences</a>
+  <a href="#dataflow">Data flow</a>
+  <a href="#mentalmodel">Mental model</a>
+  <a href="#gaps">Gaps</a>
+</div>
+
+<div class="layout">
+  <nav class="toc">
+    <div class="label">MCP CHAT — DESIGN DOC</div>
+    <ol>
+      <li><a href="#purpose"><span class="n">01</span>Purpose</a></li>
+      <li><a href="#architecture"><span class="n">02</span>Architecture</a></li>
+      <li><a href="#files"><span class="n">03</span>File breakdown</a></li>
+      <li><a href="#sequences"><span class="n">04</span>Sequence diagrams</a></li>
+      <li><a href="#dataflow"><span class="n">05</span>Data flow</a></li>
+      <li><a href="#mentalmodel"><span class="n">06</span>Mental model</a></li>
+      <li><a href="#gaps"><span class="n">07</span>Known gaps</a></li>
+    </ol>
+  </nav>
+
+  <main>
+    <header class="hero">
+      <div class="kicker">SPEC · ARCHITECTURE · MODEL CONTEXT PROTOCOL</div>
+      <h1>MCP Chat — System Blueprint</h1>
+      <p>How <code>main.py</code>, <code>mcp_client.py</code>, <code>mcp_server.py</code>, and the <code>core/</code> modules fit together to let a terminal user chat with Claude while Claude reads and edits documents through an MCP server.</p>
+    </header>
+
+    <section id="purpose">
+      <h2><span class="idx">01</span> Purpose</h2>
+      <p>MCP Chat is a terminal chat application that lets a user converse with a Claude model while giving that model access to external <strong>tools, resources, and prompts</strong> exposed by one or more <strong>MCP (Model Context Protocol)</strong> servers.</p>
+      <p>The bundled MCP server (<code>mcp_server.py</code>) is a small "document store" service: it holds a handful of fake documents in memory and exposes them three ways:</p>
+      <table>
+        <tr><th>Primitive</th><th>Exposed as</th><th>Who calls it</th></tr>
+        <tr><td class="mono">Tools</td><td><code>read_doc_contents</code>, <code>edit_document</code></td><td>Claude (via tool-use)</td></tr>
+        <tr><td class="mono">Resources</td><td><code>docs://documents</code>, <code>docs://documents/{doc_id}</code></td><td>The client directly (no model round-trip)</td></tr>
+        <tr><td class="mono">Prompts</td><td><code>format</code></td><td>The user, via <code>/command</code></td></tr>
+      </table>
+      <p>The CLI wraps this in a REPL that supports three input shapes:</p>
+      <table>
+        <tr><th>Syntax</th><th>Meaning</th><th>Handled by</th></tr>
+        <tr><td><code>plain text</code></td><td>Normal chat turn, sent to Claude</td><td><code>Chat.run</code></td></tr>
+        <tr><td><code>@doc_id</code></td><td>Inlines a document's contents as context</td><td><code>CliChat._extract_resources</code></td></tr>
+        <tr><td><code>/command doc_id</code></td><td>Runs an MCP <em>prompt</em>, e.g. <code>/format plan.md</code></td><td><code>CliChat._process_command</code></td></tr>
+      </table>
+      <p>Architecturally this is a minimal reference implementation of <strong>Host → Client → Server</strong>, plus a thin agent loop (<code>Chat</code>) that repeatedly calls Claude and feeds tool results back until Claude produces a final answer.</p>
+    </section>
+
+    <section id="architecture">
+      <h2><span class="idx">02</span> High-level architecture</h2>
+      <div class="panel">
+        <div class="fig"><b>FIG. 1</b> — PROCESS &amp; COMPONENT MAP</div>
+        <pre class="mermaid">
+flowchart TB
+    subgraph UserSpace["User space"]
+        U["User (terminal)"]
+    end
+
+    subgraph Proc["MCP Chat process — main.py"]
+        CLI["CliApp (core/cli.py)\nprompt_toolkit REPL,\n@ and / autocompletion"]
+        CHAT["CliChat (core/cli_chat.py)\ncommand + resource handling"]
+        AGENT["Chat (core/chat.py)\nagent loop: call Claude, run tools, repeat"]
+        CLAUDE_SVC["Claude (core/claude.py)\nAnthropic SDK wrapper"]
+        TOOLMGR["ToolManager (core/tools.py)\naggregates + dispatches tool calls"]
+        MCPCLIENT["MCPClient (mcp_client.py)\nMCP ClientSession over stdio"]
+    end
+
+    subgraph SrvProc["MCP server process — mcp_server.py (subprocess)"]
+        FASTMCP["FastMCP server"]
+        DOCS[("in-memory docs dict")]
+        TOOLS["Tools:\nread_doc_contents\nedit_document"]
+        RES["Resources:\ndocs://documents\ndocs://documents/{doc_id}"]
+        PROMPTS["Prompts:\nformat"]
+    end
+
+    ANTHROPIC[["Anthropic Claude API\n(claude_model)"]]
+
+    U -->|"types query"| CLI
+    CLI --> CHAT
+    CHAT --> AGENT
+    AGENT --> CLAUDE_SVC
+    CLAUDE_SVC -->|"messages.create()"| ANTHROPIC
+    ANTHROPIC -->|"text / tool_use"| CLAUDE_SVC
+    AGENT -->|"tool_use blocks"| TOOLMGR
+    TOOLMGR --> MCPCLIENT
+    CHAT -->|"list_prompts / read_resource / get_prompt"| MCPCLIENT
+    CLI -->|"list_docs_ids / list_prompts"| CHAT
+
+    MCPCLIENT <-->|"JSON-RPC over stdio"| FASTMCP
+    FASTMCP --> TOOLS
+    FASTMCP --> RES
+    FASTMCP --> PROMPTS
+    TOOLS --> DOCS
+    RES --> DOCS
+
+    CLI -->|"prints response"| U
+        </pre>
+      </div>
+      <ul>
+        <li><code>main.py</code> is the <strong>composition root</strong>: it loads env vars, spawns the MCP server as a subprocess (via <code>MCPClient</code>), and wires <code>Claude</code>, <code>CliChat</code>, and <code>CliApp</code> together.</li>
+        <li>The MCP server runs <strong>out-of-process</strong>, communicating with <code>MCPClient</code> over <strong>stdio</strong> using MCP's JSON-RPC protocol (<code>stdio_client</code> + <code>ClientSession</code>). This isolates tool execution from chat/agent logic and lets multiple servers plug in side by side (see <code>clients: dict[str, MCPClient]</code> in <code>main.py</code>).</li>
+        <li>Only <code>Claude</code> talks to the Anthropic API; only <code>MCPClient</code> talks to the MCP server. <code>Chat</code>/<code>CliChat</code> sit in between and never call either directly.</li>
+      </ul>
+    </section>
+
+    <section id="files">
+      <h2><span class="idx">03</span> File-by-file breakdown</h2>
+
+      <details class="file-card" open>
+        <summary><code>main.py</code><span class="role">Composition root / entry point</span></summary>
+        <div class="body">
+          <ul>
+            <li>Loads <code>.env</code> (<code>CLAUDE_MODEL</code>, <code>ANTHROPIC_API_KEY</code>) via <code>dotenv</code>.</li>
+            <li>Instantiates <code>Claude(model=claude_model)</code>.</li>
+            <li>Uses an <code>AsyncExitStack</code> to start the document MCP server as a subprocess (<code>python mcp_server.py</code> or <code>uv run mcp_server.py</code>) wrapped in an <code>MCPClient</code> named <code>doc_client</code>.</li>
+            <li>Accepts extra server scripts via <code>sys.argv[1:]</code>, each spun up as its own <code>MCPClient</code> and added to a <code>clients</code> dict — the extension point for plugging in more MCP servers without touching the agent loop.</li>
+            <li>Builds <code>CliChat(doc_client, clients, claude_service)</code> and <code>CliApp(chat)</code>, calls <code>cli.initialize()</code> then <code>cli.run()</code>.</li>
+            <li>On Windows, sets the Proactor event loop policy (required for subprocess stdio pipes with <code>asyncio</code>).</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>mcp_client.py</code><span class="role">MCPClient — protocol adapter</span></summary>
+        <div class="body">
+          <ul>
+            <li><code>connect()</code> — builds <code>StdioServerParameters</code>, opens the stdio transport, opens a <code>ClientSession</code> on top, calls <code>session.initialize()</code> (the MCP handshake).</li>
+            <li><code>list_tools()</code> / <code>call_tool(name, input)</code> — tool discovery &amp; invocation.</li>
+            <li><code>list_prompts()</code> / <code>get_prompt(name, args)</code> — prompt discovery &amp; rendering.</li>
+            <li><code>read_resource(uri)</code> — reads an MCP resource; JSON mime type is parsed, otherwise returned as raw text.</li>
+            <li>Implements <code>__aenter__</code>/<code>__aexit__</code> so it can be used as an async context manager (as <code>main.py</code> does via <code>AsyncExitStack</code>); <code>cleanup()</code> tears down the subprocess/session.</li>
+            <li>One <code>MCPClient</code> instance = one connection to one MCP server subprocess.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>mcp_server.py</code><span class="role">The MCP server (subprocess)</span></summary>
+        <div class="body">
+          <p>Built on <code>FastMCP</code>. Holds <code>docs: dict[str, str]</code> as a fake in-memory store, exposed via three MCP primitives:</p>
+          <ul>
+            <li><strong>Tools</strong> (callable by Claude, dispatched through <code>ToolManager</code>): <code>read_doc_contents(doc_id)</code>, <code>edit_document(doc_id, old_str, new_str)</code>.</li>
+            <li><strong>Resources</strong> (read directly by the client): <code>docs://documents</code> (JSON list of ids, used for <code>@</code> autocomplete), <code>docs://documents/{doc_id}</code> (raw text of one document).</li>
+            <li><strong>Prompts</strong> (triggered by <code>/command</code>): <code>format(doc_id)</code> returns a canned instruction telling Claude to rewrite the doc as Markdown using <code>edit_document</code>.</li>
+          </ul>
+          <p><code>mcp.run(transport="stdio")</code> starts the server reading/writing MCP JSON-RPC over stdin/stdout — this is what <code>MCPClient.connect()</code> talks to.</p>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>core/claude.py</code><span class="role">Claude — Anthropic SDK wrapper</span></summary>
+        <div class="body">
+          <ul>
+            <li><code>chat(messages, system, temperature, tools, thinking, ...)</code> → calls <code>client.messages.create(...)</code>, optionally attaching tools, system prompt, or extended-thinking params; returns the raw <code>Message</code>.</li>
+            <li><code>add_user_message</code> / <code>add_assistant_message</code> → append normalized <code>{role, content}</code> dicts to a running messages list.</li>
+            <li><code>text_from_message(message)</code> → concatenates all text-type content blocks into one string, ignoring <code>tool_use</code>/<code>thinking</code> blocks.</li>
+            <li>This is the <strong>only</strong> module that talks to the Anthropic API.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>core/tools.py</code><span class="role">ToolManager — Claude ↔ MCP bridge</span></summary>
+        <div class="body">
+          <ul>
+            <li><code>get_all_tools(clients)</code> → calls <code>list_tools()</code> on every connected <code>MCPClient</code> and flattens results into Anthropic's tool schema (<code>name</code>, <code>description</code>, <code>input_schema</code>) — this list becomes <code>tools=</code> in <code>Claude.chat</code>.</li>
+            <li><code>_find_client_with_tool(clients, tool_name)</code> → searches all clients to find which MCP server owns a tool name, so multiple servers can coexist without name-routing config.</li>
+            <li><code>execute_tool_requests(clients, message)</code> → pulls every <code>tool_use</code> block out of Claude's response, resolves its owning client, calls <code>call_tool(name, input)</code>, and packages the result as an Anthropic <code>tool_result</code> block. Returns the blocks to be sent back to Claude as a user message.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>core/chat.py</code><span class="role">Chat — the agent loop</span></summary>
+        <div class="body">
+          <p>Base class implementing the core <strong>think → act → observe</strong> loop:</p>
+          <ol>
+            <li><code>_process_query(query)</code> — appends the raw user query as a user message (overridden by <code>CliChat</code>).</li>
+            <li><code>run(query)</code> loops: call <code>claude_service.chat(...)</code> → append assistant response → if <code>stop_reason == "tool_use"</code>, execute tools via <code>ToolManager</code> and append results as a new user message, then loop again; otherwise extract final text and return.</li>
+          </ol>
+          <p>This loop is what lets Claude chain multiple tool calls (read a doc, edit it, read it again) before producing a final answer.</p>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>core/cli_chat.py</code><span class="role">CliChat(Chat) — document-aware specialization</span></summary>
+        <div class="body">
+          <ul>
+            <li>Holds a dedicated <code>doc_client</code>; exposes <code>list_prompts()</code>, <code>list_docs_ids()</code>, <code>get_doc_content()</code>, <code>get_prompt()</code> as passthroughs, used by <code>CliApp</code> for autocompletion.</li>
+            <li><code>_extract_resources(query)</code> — scans for <code>@word</code> mentions, checks each against the real doc id list, fetches matching documents, formats them as <code>&lt;document id="..."&gt;...&lt;/document&gt;</code> blocks.</li>
+            <li><code>_process_command(query)</code> — if the query starts with <code>/</code>, treats <code>words[0]</code> as an MCP prompt name and <code>words[1]</code> as <code>doc_id</code>, calls <code>doc_client.get_prompt(...)</code>, converts the returned <code>PromptMessage</code>s into Anthropic message params, and appends them directly to <code>self.messages</code> — bypassing the normal wrapper prompt.</li>
+            <li><code>_process_query(query)</code> (override) — if it wasn't a <code>/command</code>, wraps the query and any <code>@mention</code> content into one instruction prompt telling Claude how to use the inlined context.</li>
+            <li>Module-level helpers <code>convert_prompt_message(s)_to_message_param</code> adapt MCP's <code>PromptMessage</code> shape into the plain dicts the Anthropic SDK expects.</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="file-card">
+        <summary><code>core/cli.py</code><span class="role">CliApp — terminal front-end</span></summary>
+        <div class="body">
+          <p>Built on <code>prompt_toolkit</code>, purely presentational — no chat/business logic:</p>
+          <ul>
+            <li><code>UnifiedCompleter</code> — suggests document ids after <code>@</code>, <code>/command</code> names after <code>/</code> (with description), and a doc id argument once a valid <code>/command&nbsp;</code> is typed.</li>
+            <li><code>CommandAutoSuggest</code> — inline grey-text suggestion of the expected argument name (e.g. <code>doc_id</code>) right after typing a known command.</li>
+            <li>Custom <code>KeyBindings</code> for <code>/</code>, <code>@</code>, and space auto-open completion menus, mimicking Slack/Discord-style slash commands.</li>
+            <li><code>initialize()</code> → <code>refresh_resources()</code> + <code>refresh_prompts()</code> once at startup to populate the completer.</li>
+            <li><code>run()</code> → the REPL: reads a line, ignores blank input, calls <code>agent.run(user_input)</code> (inherited <code>Chat.run</code>), prints the response; <code>Ctrl+C</code> exits.</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section id="sequences">
+      <h2><span class="idx">04</span> Sequence diagrams</h2>
+
+      <h3>4.1 — Startup</h3>
+      <div class="panel">
+        <div class="fig"><b>FIG. 2</b> — STARTUP HANDSHAKE</div>
+        <pre class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant Main as main.py
+    participant MC as MCPClient (doc_client)
+    participant Srv as mcp_server.py (subprocess)
+    participant App as CliApp
+    participant Chat as CliChat
+
+    U->>Main: uv run main.py
+    Main->>Main: load_dotenv(), read CLAUDE_MODEL / ANTHROPIC_API_KEY
+    Main->>MC: MCPClient(command, args).__aenter__()
+    MC->>Srv: spawn subprocess (stdio pipes)
+    MC->>Srv: initialize() (MCP handshake)
+    Srv-->>MC: capabilities (tools/resources/prompts)
+    Main->>Chat: new CliChat(doc_client, clients, claude_service)
+    Main->>App: new CliApp(chat)
+    Main->>App: initialize()
+    App->>Chat: list_docs_ids()
+    Chat->>MC: read_resource("docs://documents")
+    MC->>Srv: resources/read
+    Srv-->>MC: list of doc ids
+    App->>Chat: list_prompts()
+    Chat->>MC: list_prompts()
+    MC->>Srv: prompts/list
+    Srv-->>MC: [format, ...]
+    App->>App: populate UnifiedCompleter
+    Main->>App: run() (enter REPL loop)
+        </pre>
+      </div>
+
+      <h3>4.2 — Plain chat turn with a tool call (agentic loop)</h3>
+      <div class="panel">
+        <div class="fig"><b>FIG. 3</b> — AGENT LOOP WITH TOOL USE</div>
+        <pre class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant App as CliApp
+    participant CC as CliChat
+    participant Chat as Chat.run
+    participant TM as ToolManager
+    participant Cl as Claude
+    participant API as Anthropic API
+    participant MC as MCPClient
+    participant Srv as mcp_server.py
+
+    U->>App: "Tell me about at-deposition.md"
+    App->>CC: run(query)
+    CC->>CC: _process_query(query)
+    CC->>MC: list_docs_ids() / get_doc_content("deposition.md")
+    MC->>Srv: resources/read
+    Srv-->>MC: doc text
+    CC->>CC: build wrapper prompt with context block
+    CC->>Chat: loop begins
+    Chat->>TM: get_all_tools(clients)
+    TM->>MC: list_tools()
+    MC->>Srv: tools/list
+    Srv-->>MC: [read_doc_contents, edit_document]
+    Chat->>Cl: chat(messages, tools)
+    Cl->>API: messages.create(...)
+    API-->>Cl: Message(stop_reason=tool_use, tool_use block)
+    Cl-->>Chat: Message
+    Chat->>Chat: add_assistant_message()
+    alt stop_reason is tool_use
+        Chat->>TM: execute_tool_requests(clients, message)
+        TM->>MC: call_tool(name, input)
+        MC->>Srv: tools/call
+        Srv-->>MC: CallToolResult
+        TM-->>Chat: tool_result content blocks
+        Chat->>Chat: add_user_message(tool_results)
+        Chat->>Cl: chat(messages, tools) (loop again)
+        Cl->>API: messages.create(...)
+        API-->>Cl: Message(stop_reason=end_turn, text)
+    end
+    Chat->>Chat: text_from_message(response)
+    Chat-->>App: final_text_response
+    App->>U: print response
+        </pre>
+      </div>
+
+      <h3>4.3 — <code>/command</code> (MCP prompt) flow</h3>
+      <div class="panel">
+        <div class="fig"><b>FIG. 4</b> — PROMPT-DRIVEN COMMAND</div>
+        <pre class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant App as CliApp
+    participant CC as CliChat
+    participant MC as MCPClient
+    participant Srv as mcp_server.py
+    participant Chat as Chat.run
+    participant Cl as Claude
+    participant API as Anthropic API
+
+    U->>App: "/format plan.md"
+    App->>CC: run(query)
+    CC->>CC: _process_command(query) starts with slash
+    CC->>MC: get_prompt("format", doc_id=plan.md)
+    MC->>Srv: prompts/get
+    Srv-->>MC: PromptMessage(s), reformat instruction
+    CC->>CC: convert_prompt_messages_to_message_params(...)
+    CC->>CC: append converted messages to self.messages
+    CC->>Chat: inherited loop, same as Fig. 3 from here
+    Chat->>Cl: chat(messages, tools)
+    Cl->>API: messages.create(...)
+    Note over Chat,API: Claude likely calls edit_document, looping via ToolManager until it returns final markdown text
+    Chat-->>App: final_text_response
+    App->>U: print reformatted document
+        </pre>
+      </div>
+    </section>
+
+    <section id="dataflow">
+      <h2><span class="idx">05</span> End-to-end data flow</h2>
+      <div class="panel">
+        <div class="fig"><b>FIG. 5</b> — INPUT ROUTING</div>
+        <pre class="mermaid">
+flowchart LR
+    A["User input"] --> B{"Starts with '/' ?"}
+    B -- yes --> C["CliChat._process_command\nMCP prompts/get"]
+    B -- no --> D["CliChat._extract_resources\n(at-mentions to resources/read)"]
+    C --> E["messages[] updated"]
+    D --> E
+    E --> F["Chat.run loop"]
+    F --> G["Claude.chat to Anthropic API"]
+    G --> H{"stop_reason"}
+    H -- tool_use --> I["ToolManager.execute_tool_requests\nto MCPClient.call_tool to mcp_server tools/call"]
+    I --> F
+    H -- end_turn / other --> J["Claude.text_from_message"]
+    J --> K["Printed to terminal"]
+        </pre>
+      </div>
+    </section>
+
+    <section id="mentalmodel">
+      <h2><span class="idx">06</span> Mental model summary</h2>
+      <div class="pill-row">
+        <span class="pill">Host = main.py process</span>
+        <span class="pill">Client = MCPClient</span>
+        <span class="pill">Server = mcp_server.py</span>
+        <span class="pill">Agent loop = Chat.run</span>
+      </div>
+      <ul>
+        <li><strong>Host</strong> = the whole <code>main.py</code> process (CLI + agent + Claude wrapper).</li>
+        <li><strong>Client</strong> = <code>MCPClient</code> — one per MCP server connection, purely a protocol adapter (stdio JSON-RPC ↔ Python async calls).</li>
+        <li><strong>Server</strong> = <code>mcp_server.py</code> — owns the actual data (<code>docs</code> dict) and business logic, exposed as tools/resources/prompts.</li>
+        <li><strong>Agent loop</strong> (<code>Chat.run</code>) is model-driven orchestration: it doesn't know about documents at all — it only knows "call Claude, and if it asks for tools, run them via <code>ToolManager</code> and feed results back."</li>
+        <li><strong><code>CliChat</code></strong> is where document-specific UX lives: <code>@mention</code> inlining and <code>/command</code> dispatch are client-side conveniences built on top of generic MCP resource/prompt primitives — Claude itself never sees the raw <code>@</code>/<code>/</code> syntax, only pre-resolved context or prompt messages.</li>
+        <li><strong><code>CliApp</code></strong> is purely presentational (prompt_toolkit REPL + autocomplete) and holds no chat/business logic — it only calls into <code>CliChat</code>.</li>
+        <li><strong>Extensibility</strong>: additional MCP servers can be attached by passing extra script paths as CLI args to <code>main.py</code>; <code>ToolManager</code> automatically discovers and routes to their tools with no other code change.</li>
+      </ul>
+    </section>
+
+    <section id="gaps">
+      <h2><span class="idx">07</span> Known gaps <span style="color:var(--muted);font-weight:400;text-transform:none;font-size:12px;">(as of this writing)</span></h2>
+      <div class="callout">
+        <div class="fig">CAUTION — STALE / DEAD CODE</div>
+        <ul>
+          <li><code>mcp_client.py</code> lines 47–67 contain a dead, commented-out duplicate stub of the methods actually implemented just below (lines 69–94) — safe to delete.</li>
+          <li><code>mcp_server.py</code>'s header TODO comments (lines 15–20) are stale; everything they describe is already implemented in the file. Only a "summarize" prompt (referenced by the README's <code>/summarize deposition.md</code> example) is <em>missing</em> — only <code>format</code> is defined, so <code>/summarize</code> will currently fail with an MCP "prompt not found" error.</li>
+          <li>No linting or type-checking is configured (per README).</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer class="doc-footer">MCP CHAT · DESIGN REFERENCE · src/mcp_project/</footer>
+  </main>
+</div>
