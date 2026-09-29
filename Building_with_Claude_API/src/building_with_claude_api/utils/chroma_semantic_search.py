@@ -136,7 +136,8 @@ if __name__ == "__main__":
     collection = build_collection(chunks=chunks)
 
     # Get the query from user
-    user_query = input("Enter your query to search: =>")
+    # user_query = input("Enter your query to search: =>")
+    user_query = "Do we have any memory issues like ERR_MEM_ALLOC_FAIL_0x8007000E?"
 
     # Search the query to get the hit list
     hit_list = search(collection=collection, query=user_query, k=2)
