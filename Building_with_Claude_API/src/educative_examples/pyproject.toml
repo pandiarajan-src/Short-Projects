@@ -1,5 +1,5 @@
 [project]
-name = "building-with-claude-api"
+name = "educative-examples"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -9,22 +9,12 @@ authors = [
 requires-python = ">=3.12"
 dependencies = [
     "anthropic>=1.4.0",
-    "chromadb>=1.5.9",
-    "openai>=3.16.2",
-    "pandas>=3.0.6",
     "python-dotenv>=1.2.3",
-    "rank-bm25>=0.2.2",
-    "sentence-transformers>=6.1.0",
 ]
 
 [project.scripts]
-building-with-claude-api = "building_with_claude_api:main"
+educative-examples = "educative_examples:main"
 
 [build-system]
-requires = ["uv_build>=0.12.4,<0.13.0"]
+requires = ["uv_build>=0.12.17,<0.13.0"]
 build-backend = "uv_build"
-
-[tool.uv.workspace]
-members = [
-    "src/educative_examples",
-]
