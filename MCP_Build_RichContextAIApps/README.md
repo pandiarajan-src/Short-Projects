@@ -16,4 +16,4 @@ Supporting files: `References/` and `requirements.txt`.
 
 ## Credits
 
-Taught by [W. Isaac J. Singer](https://www.linkedin.com/in/wj-singer/) in collaboration with [deeplearning.ai](https://www.deeplearning.ai) to create the course.
+Taught by [Elie Schoppik](https://www.linkedin.com/in/elieschoppik/) in collaboration with [deeplearning.ai](https://www.deeplearning.ai) to create the course.

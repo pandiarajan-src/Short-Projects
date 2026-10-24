@@ -153,8 +153,9 @@ after a human reviews the diff and approves it — never silently.
   exception) on missing config, missing `openai` package, or any request
   failure, logging a one-line notice; `draft_skill()` treats `None` as "use
   the heuristic," so a flaky network or an unset `.env` never breaks the
-  pipeline — see [`.env.example`](../.env.example) for the Ollama/OpenAI
-  setup.
+  pipeline. To use an LLM, set `OPENAI_BASE_URL`, `OPENAI_API_KEY` and
+  `OPENAI_MODEL` as environment variables before running (see the root
+  README, Step 2).
 
 ---
 

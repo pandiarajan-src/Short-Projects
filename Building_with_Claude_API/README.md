@@ -28,6 +28,6 @@ Shared helpers live in `src/building_with_claude_api/utils/` (embeddings, Chroma
 
 ```bash
 uv sync                       # install dependencies (Python 3.12+, uv)
-cp .env.example .env          # add your ANTHROPIC_API_KEY
+cp .env.exmaple .env          # add your ANTHROPIC_API_KEY
 uv run python src/building_with_claude_api/00-making-simple-api-request.py
 ```

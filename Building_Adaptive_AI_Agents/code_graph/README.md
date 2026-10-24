@@ -33,15 +33,12 @@ on the word "player" will never surface `auth.py`. A knowledge graph can,
 because it can follow the `call` edge from one to the other.
 
 `demo.py` (at the repo root) runs both halves of the project side-by-side so
-you can see the difference for yourself, e.g.:
-
-```
---- Query: "Where do we verify a token?" ---
-Keyword search finds:       ['auth/session.py']
-Graph anchor:                auth/session.py::verify  (similarity 0.412)
-Graph (PageRank) finds:      ['auth/session.py', 'auth/session.py::verify', 'api/routes.py']
--> Files the graph found that keyword search MISSED: ['api/routes.py']
-```
+you can see the difference for yourself. On this project's toy repo
+(`sample_repo/`), the "Where do we verify a token?" question anchors on
+`token_utils.py` (the file that literally contains `verify_token`), and the
+PageRank walk then surfaces `auth.py` — the file that *calls* `verify_token()`
+via the import/call edge, even though it shares no keywords with the query.
+Run `python3 demo.py` to see the exact real output for both sample questions.
 
 ## Frameworks / libraries used
 

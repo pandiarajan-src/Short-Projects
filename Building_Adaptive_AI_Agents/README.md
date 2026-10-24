@@ -28,7 +28,7 @@ NetworkX, and scikit-learn. An LLM is optional (see Step 2).
 **1. Install dependencies**
 
 ```bash
-cd adaptive-agent-lab
+cd Building_Adaptive_AI_Agents
 python3 -m venv .venv && source .venv/bin/activate   # optional but recommended
 pip install -r requirements.txt
 ```
@@ -37,21 +37,19 @@ pip install -r requirements.txt
 
 By default, the induction engine uses a small built-in heuristic writer so
 the whole project runs with zero setup. To use a *real* LLM instead (closer
-to what the course does):
+to what the course does), set three environment variables before running:
 
 ```bash
-cp .env.example .env
+export OPENAI_BASE_URL="https://api.openai.com/v1"   # or http://localhost:11434/v1 for Ollama
+export OPENAI_API_KEY="sk-..."                       # any non-empty key works for local Ollama
+export OPENAI_MODEL="gpt-4o-mini"                    # or e.g. qwen2.5:7b for Ollama
 ```
 
-Then either:
 - **Free & open source (recommended):** install [Ollama](https://ollama.com),
-  run `ollama pull qwen2.5:7b`, and uncomment the Ollama lines in `.env`.
-- **Hosted API:** uncomment the OpenAI lines in `.env` and add your key.
+  run `ollama pull qwen2.5:7b`, and point `OPENAI_BASE_URL` at
+  `http://localhost:11434/v1`.
+- **Hosted API:** leave the base URL as OpenAI's and add your key.
 
-Either way, load the file before running anything:
-```bash
-export $(grep -v '^#' .env | xargs)   # macOS/Linux
-```
 If you skip this step entirely, everything still works — you'll just see
 `writer=heuristic` in the output instead of `writer=llm`.
 
@@ -150,10 +148,10 @@ anchoring. See "Where to go next" below for a one-line upgrade.
 ## Project layout
 
 ```
-adaptive-agent-lab/
+Building_Adaptive_AI_Agents/
 ├── README.md
 ├── requirements.txt
-├── .env.example
+├── course_lab.zip              # the course's own official lab notebooks (L2/L4/L5), for reference only
 ├── demo.py                     # run this first
 ├── data/
 │   └── sample_traces.json      # 3 synthetic agent traces (Lesson 2's example)
@@ -164,7 +162,7 @@ adaptive-agent-lab/
 │   ├── induction_engine.py     # LLM writer + offline heuristic writer
 │   ├── skill_box.py            # versioning + approve/reject
 │   └── cli.py
-├── sample_repo/                # tiny repo (with real git history) to build a graph over
+├── sample_repo/                # tiny repo to build a graph over (not a git repo itself)
 │   ├── autoplay.py / get_feed.py / rank_clip.py / cache_utils.py
 │   └── auth.py / token_utils.py
 └── code_graph/
