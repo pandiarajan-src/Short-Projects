@@ -1,11 +1,11 @@
 # sample_repo/
 
-This folder is **not part of the adaptive-agent-lab application**. It's a
+This folder is **not part of the adaptive-agent-lab application itself**. It's a
 tiny, fake codebase that exists purely so the rest of the project — the
 Code Knowledge Graph in `code_graph/` — has something realistic to analyze.
 Think of it as a "practice patient" for the graph-building tool: small
-enough to read in five minutes, but shaped like a real app so imports,
-function calls, and git history all look genuine.
+enough to read in five minutes, but shaped like a real app so imports and
+function calls look genuine.
 
 It pretends to be two features of a short-video app (something like
 TikTok's autoplay-next-clip button) plus a login/auth system:
@@ -76,17 +76,29 @@ autoplay.py  ──imports──▶  get_feed.py  ──imports──▶  rank_c
 separate, unconnected feature areas — that separation is what lets the demo
 show a graph with two distinct clusters instead of one blob.
 
-## Why this folder has its own `.git` history
+## Why git history matters here
 
-Unlike the rest of the project, `sample_repo/` is a real (nested) git
-repository with its own commit history — `git log` inside this folder shows
-commits like "Add clip ranking with score cache" and "Tune autoplay ranking
-behavior." That history is what `code_graph/parse_coedits.py` reads: it
-looks at which files were committed together and draws a "co-edit" edge
-between them (e.g. `autoplay.py`, `get_feed.py`, and `rank_clip.py` were all
-touched in the same commit). This is one of the three relationship types
-the knowledge graph models — the other two being `import` (which module
-imports which) and `call` (which function calls which).
+Unlike the code folders, a repo analyzed for co-edits needs a **git
+history**: `code_graph/parse_coedits.py` reads `git log` from the directory
+you point it at, looks at which files were committed together, and draws a
+"co-edit" edge between pairs that appear together in 2+ commits. This is one
+of the three relationship types the knowledge graph models — the other two
+being `import` (which module imports which) and `call` (which function
+calls which).
+
+**Heads-up about this sample repo:** the folder you are reading is *not*
+itself a git repository (it lives inside the parent `Short-Projects` repo,
+which added all of these files in a single commit). That means running
+`code_graph.cli build --repo sample_repo` will produce `import` and `call`
+edges only — there is no per-file commit history here to mine, so
+`parse_coedits.py` (which requires 2+ shared commits by default) yields no
+`co_edit` edges over these toy files. To see co-edit edges for real, point
+`build --repo` at a repo with genuine multi-commit history, e.g. one of your
+own projects:
+
+```bash
+python3 -m code_graph.cli build --repo /path/to/some/repo --out my_graph.pkl
+```
 
 ## How this relates to `demo.py`
 
