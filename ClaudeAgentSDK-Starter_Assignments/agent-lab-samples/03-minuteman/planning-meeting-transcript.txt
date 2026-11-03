@@ -1,0 +1,51 @@
+Sprint Planning - Website Revamp
+Date: Thursday, 29 October 2026
+Attendees: Rahul (product), Sneha (design), Vikram (backend), Anitha (frontend), Joseph (QA)
+
+[14:00] Rahul: Thanks for joining. Goal for this sprint is the new pricing page and the contact form. Let's go item by item.
+
+[14:02] Rahul: First, pricing page design. Sneha, where are we?
+
+[14:02] Sneha: Wireframes are done. I'll have the final high-fidelity mockups ready by Tuesday, 3 November.
+
+[14:03] Rahul: Great. Anitha, you'll build the pricing page once Sneha's mockups land?
+
+[14:03] Anitha: Yes. If I get the mockups Tuesday, I can have the page in staging by Friday, 6 November.
+
+[14:05] Rahul: Contact form. Vikram, the form needs an endpoint that sends an email to the sales inbox.
+
+[14:05] Vikram: I can build the endpoint. Probably two days.
+
+[14:06] Rahul: Let's say Wednesday the 4th for the endpoint.
+
+[14:06] Vikram: Fine, Wednesday the 4th.
+
+[14:08] Joseph: I'll need test accounts on staging to test the contact form.
+
+[14:08] Rahul: Vikram, can you create those test accounts for Joseph?
+
+[14:09] Vikram: Actually I'm overloaded with the endpoint. Can Anitha do it?
+
+[14:09] Anitha: Sure, I'll create three test accounts for Joseph today.
+
+[14:11] Rahul: Next, the old blog migration. I wanted Vikram to move the old blog posts to the new CMS.
+
+[14:12] Vikram: That's at least a week of work.
+
+[14:12] Rahul: Okay, you're right. Let's drop the blog migration from this sprint. We'll revisit it next month.
+
+[14:14] Joseph: I'll write the test plan for the pricing page and the contact form. I can share it by Monday, 2 November.
+
+[14:15] Sneha: Someone might want to check whether our fonts are licensed for the website. I'm not sure who owns that.
+
+[14:15] Rahul: Good question. I don't know either. Let's park it.
+
+[14:16] Rahul: I'll send the sprint summary to the leadership team tomorrow morning.
+
+[14:17] Anitha: Rahul, should the pricing page support the currency switcher?
+
+[14:17] Rahul: Not this sprint. Rupees only for now.
+
+[14:18] Rahul: Okay, that's everything. Thanks all.
+
+[14:18] (Meeting ended)

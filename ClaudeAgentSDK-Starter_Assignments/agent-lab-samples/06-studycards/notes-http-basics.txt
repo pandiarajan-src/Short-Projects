@@ -1,0 +1,53 @@
+LECTURE 4 - HTTP BASICS
+Course: Introduction to Web Development
+
+1. WHAT IS HTTP
+HTTP stands for HyperText Transfer Protocol.
+It is the protocol browsers and servers use to exchange web pages and data.
+HTTP is a request-response protocol: the client sends a request, the server sends back a response.
+HTTP is stateless: each request is independent, and the server does not remember earlier requests by itself.
+Cookies and sessions are used to add state on top of HTTP.
+HTTPS is HTTP over TLS, which encrypts the traffic between client and server.
+The default port for HTTP is 80 and for HTTPS is 443.
+
+2. ANATOMY OF A REQUEST
+A request has a method, a URL (path), headers, and an optional body.
+Example first line: GET /products?page=2 HTTP/1.1
+Common headers: Host, User-Agent, Accept, Content-Type, Authorization.
+The Host header tells the server which website the request is for.
+
+3. HTTP METHODS
+GET - read a resource. Should not change data on the server.
+POST - create a new resource or submit data.
+PUT - replace a resource completely.
+PATCH - update part of a resource.
+DELETE - remove a resource.
+A method is called idempotent if calling it many times has the same effect as calling it once.
+GET, PUT and DELETE are idempotent. POST is not idempotent.
+
+4. STATUS CODES
+Status codes are three-digit numbers grouped by their first digit:
+1xx - informational
+2xx - success (200 OK, 201 Created, 204 No Content)
+3xx - redirection (301 Moved Permanently, 302 Found, 304 Not Modified)
+4xx - client error (400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found, 429 Too Many Requests)
+5xx - server error (500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable)
+
+401 means the client is not authenticated (not logged in).
+403 means the client is authenticated but not allowed to access the resource.
+
+5. CACHING
+The Cache-Control header tells browsers and proxies how long a response can be reused.
+An ETag is a version identifier for a resource.
+The browser sends the ETag back in an If-None-Match header; if nothing changed, the server replies 304 Not Modified with no body.
+
+6. VERSIONS
+HTTP/1.1 sends one request at a time per connection.
+HTTP/2 multiplexes many requests over a single connection.
+HTTP/3 runs over QUIC, which is built on UDP instead of TCP.
+
+7. QUICK REVIEW
+- HTTP is stateless.
+- GET reads, POST creates.
+- 404 means not found; 500 means the server failed.
+- HTTPS uses port 443.

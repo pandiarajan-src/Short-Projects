@@ -1,0 +1,11 @@
+# Sample topics for DigestBot - pick one per run, or loop over the file.
+# Mix of broad and narrow topics so you can see how the agent handles both.
+
+solid-state batteries
+monsoon forecasting with AI
+electric buses in Indian cities
+James Webb Space Telescope discoveries
+open-source large language models
+quantum computing error correction
+vertical farming
+UPI digital payments growth

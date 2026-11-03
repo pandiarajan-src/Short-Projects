@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+.DS_Store
+# outputs written by the agents
+agent-lab-samples/*/work/
+agent-lab-samples/02-spendsense/spendsense-report.md
+agent-lab-samples/03-minuteman/*-actions.md
+agent-lab-samples/05-digestbot/digests/
+agent-lab-samples/06-studycards/*-cards.csv
+agent-lab-samples/06-studycards/*-cards.md

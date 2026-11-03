@@ -1,0 +1,33 @@
+Daily Standup - Mobile Team
+Date: Monday, 26 October 2026
+Attendees: Priya (lead), Arun, Meena, Karthik, Divya
+
+[09:30] Priya: Morning everyone. Let's keep it quick, we have the demo on Thursday. Arun, you go first.
+
+[09:30] Arun: Friday I finished the login screen layout. Today I'm wiring it to the auth API. One blocker: the staging API keeps timing out after about ten seconds.
+
+[09:31] Priya: Karthik, can you look at the staging timeout today? It's blocking Arun.
+
+[09:31] Karthik: Yes, I'll check the staging server logs this morning and update the channel by noon.
+
+[09:32] Meena: I'm still on the profile page. I should have the edit-profile form done by Wednesday. I also noticed the app icon looks blurry on the newer phones.
+
+[09:32] Priya: Good catch. Meena, after the profile page, please export the app icon again at the higher resolution sizes. No rush, end of week is fine.
+
+[09:33] Meena: Sure, I'll do that by Friday.
+
+[09:33] Divya: I wrote the test cases for the signup flow. I'll run the full regression on the test build tomorrow and share the report.
+
+[09:34] Priya: Thanks Divya. For the Thursday demo, I'll prepare the slide deck myself. Arun, I'll need two screenshots of the login screen from you by Wednesday evening.
+
+[09:34] Arun: Okay, two screenshots by Wednesday evening, got it.
+
+[09:35] Karthik: One more thing. The analytics library we use has a new major version out. Maybe someone should look at upgrading it at some point.
+
+[09:35] Priya: Hmm, maybe. Let's not worry about that this sprint.
+
+[09:35] Divya: Also, the dark mode colours on the settings page look a bit off. Not sure if it's a bug or the design.
+
+[09:36] Priya: Let's talk about that after the demo. Anything else? No? Okay, thanks all.
+
+[09:36] (Meeting ended)
