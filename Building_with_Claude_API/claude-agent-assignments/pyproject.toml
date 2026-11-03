@@ -1,0 +1,11 @@
+[project]
+name = "claude-agent-assignments"
+version = "1.0.0"
+description = "Four hands-on assignments: build agents with the Claude API, tools, MCP, Skills and the Claude Agent SDK"
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=1.4.0",
+    "claude-agent-sdk>=0.2.174",
+    "mcp[cli]>=2.3.0",
+    "python-dotenv>=1.1.0",
+]
